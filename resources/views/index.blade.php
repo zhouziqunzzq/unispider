@@ -1,4 +1,4 @@
-@extends('layouts.master)
+@extends('layouts.master')
 @section('nav', 'testnav')
 @section('content')
     {!! $tweets !!}
