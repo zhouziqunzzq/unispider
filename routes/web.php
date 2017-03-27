@@ -11,6 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'IndexController@index');
+Route::group(['middleware' => 'apiauth'], function () {
+    Route::get('/test', function () {
+        return 'test';
+    });
+    Route::resource('api/tweets', 'TweetController', ['only' => [
+        'index', 'show', 'update', 'store'
+    ]]);
+    Route::resource('api/jobs', 'JobController', ['only' => [
+        'index', 'store'
+    ]]);
 });
