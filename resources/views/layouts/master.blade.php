@@ -2,11 +2,11 @@
 <head>
     <meta charset="utf-8">
     <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
 
     <!--Import materialize.css-->
     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-" crossorigin="anonymous">
 
     <link rel="stylesheet" href="/css/app.css">
 
@@ -22,17 +22,12 @@
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
-
-{{--<script type="text/javascript" src="http://zeroclipboard.org/javascripts/zc/v2.2.0/ZeroClipboard.js"></script>--}}
-
 <script type="text/javascript" src="/js/app.js"></script>
 
 @yield('nav')
-<main>
-    @yield('content')
-</main>
+
+@yield('content')
+
 @yield('footer')
 </body>
 </html>

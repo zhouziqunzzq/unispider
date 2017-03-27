@@ -17,6 +17,7 @@ class CreateJobsTable extends Migration
             $table->increments('id');
             //$table->string('screen_name');
             $table->string('max_id');
+            $table->string('since_id');
             $table->timestamps();
         });
     }

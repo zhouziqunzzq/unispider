@@ -19,6 +19,7 @@ class JobController extends Controller
         {
             $job = new Job();
             $job->max_id = '0';
+            $job->since_id = '0';
             $job->save();
         }
         return response(json_encode($job));
@@ -44,6 +45,7 @@ class JobController extends Controller
     {
         $job = new Job();
         $job->max_id = $request->input('max_id');
+        $job->since_id = $request->input('since_id');
         $job->save();
     }
 
