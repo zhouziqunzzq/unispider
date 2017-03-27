@@ -18,6 +18,8 @@ class IndexController extends Controller
             $r .= $tweet->text;
             $r .= "</p></div>";
         }
-        return response($r);
+        return view('index', [
+            'tweets' => $r,
+        ]);
     }
 }
