@@ -23,12 +23,12 @@
                 <!-- A wrapper for all the blog posts -->
                 <div class="posts">
                     @foreach($tweets as $tweet)
-                        <h1 class="content-subhead">{{$tweet->origin_created_at}}</h1>
+                        <h1 class="content-subhead">{{date("Y-m-d H:i:s",$tweet->origin_created_at)}}</h1>
 
                         <section class="post">
                             <header class="post-header">
+                                <img width="48" height="48" alt="avatar" class="post-avatar" src="/img/n.jpg">
                                 <h2 class="post-title">{{$tweet->id}}</h2>
-
                             </header>
 
                             <div class="post-description">
@@ -44,9 +44,8 @@
                 <div class="footer">
                     <div class="pure-menu pure-menu-horizontal">
                         <ul>
-                            <li class="pure-menu-item"><a href="http://purecss.io/" class="pure-menu-link">About</a></li>
-                            <li class="pure-menu-item"><a href="http://twitter.com/yuilibrary/" class="pure-menu-link">Twitter</a></li>
-                            <li class="pure-menu-item"><a href="http://github.com/yahoo/pure/" class="pure-menu-link">GitHub</a></li>
+                            <li class="pure-menu-item"><a href="https://www.cool2645.com/" class="pure-menu-link">2645 Studio</a></li>
+                            <li class="pure-menu-item"><a href="http://twitter.com/nanjolno/" class="pure-menu-link">Original Twitter</a></li>
                         </ul>
                     </div>
                 </div>

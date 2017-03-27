@@ -38,7 +38,7 @@ class TweetController extends Controller
         $tweet = json_decode($request->input('data'));
         $t = new Tweet();
         $t->origin_id = $tweet->id_str;
-        $t->origin_created_at = $tweet->created_at;
+        $t->origin_created_at = strtotime($tweet->created_at);
         $t->text = $tweet->text;
         $t->jsondata = $request->input('data');
         $t->save();

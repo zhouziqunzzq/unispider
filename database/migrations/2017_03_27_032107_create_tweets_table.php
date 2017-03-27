@@ -18,6 +18,7 @@ class CreateTweetsTable extends Migration
             $table->string('origin_id');
             $table->index('origin_id');
             $table->string('origin_created_at');
+            $table->index('origin_created_at');
             //$table->char('lang', 5);
             //$table->bigInteger('favorite_count');
             //$table->bigInteger('retweet_count');

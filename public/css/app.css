@@ -93,19 +93,20 @@ h3 {
     padding-bottom: 2em;
 }
 .post-title {
-    font-size: 2em;
-    color: #222;
-    margin-bottom: 0.2em;
+    font-size: 1em;
+    color: #8aa4af;
+    margin-bottom: 0.1em;
 }
 .post-avatar {
     border-radius: 50px;
-    float: right;
+    float: left;
     margin-left: 1em;
 }
 .post-description {
     font-family: Georgia, "Cambria", serif;
     color: #444;
     line-height: 1.8em;
+    margin-left: 4em;
 }
 .post-meta {
     color: #999;
