@@ -39,8 +39,8 @@ class JobController extends Controller
                     $job->type = 2;
                     $job->save();
                 }
-                $min_id = min(Tweet::orderBy('id', 'dese')->first()->value('id'), ($job->since_id) + 1);
-                $max_id = min(Tweet::orderBy('id', 'dese')->first()->value('id'), $min_id + 20);
+                $min_id = min(Tweet::orderBy('id', 'desc')->first()->value('id'), ($job->since_id) + 1);
+                $max_id = min(Tweet::orderBy('id', 'desc')->first()->value('id'), $min_id + 20);
                 $jobs = [
                     "max_id" => $max_id,
                     "job_list" => Tweet::whereBetween('id', [$min_id, $max_id])->get()->pluck('origin_id')
