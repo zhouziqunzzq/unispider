@@ -33,7 +33,7 @@
 
                             <div class="post-description">
                                 <p>
-                                    {{$tweet->text}}
+                                    {!! empty($tweet->html_content) ? $tweet->text : $tweet->html_content !!}
                                 </p>
                             </div>
                             @if($tweet->trans_zh_author)

@@ -76,7 +76,10 @@ class TweetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tweet = Tweet::where('origin_id', $id)->first();
+        $tweet->html_content = $request->input('html_content');
+        $tweet->save();
+        return response($tweet->origin_id . " updated.");
     }
 
     /**

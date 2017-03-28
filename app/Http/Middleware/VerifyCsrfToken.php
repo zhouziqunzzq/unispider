@@ -14,5 +14,7 @@ class VerifyCsrfToken extends BaseVerifier
     protected $except = [
         'api/tweets',
         'api/jobs',
+        'api/jobs/spider/1',
+        'api/jobs/spider/2',
     ];
 }

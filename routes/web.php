@@ -13,14 +13,13 @@
 
 Route::get('/', 'IndexController@index');
 Route::group(['middleware' => 'apiauth'], function () {
-    Route::get('/test', function () {
-        return 'test';
-    });
     Route::resource('api/tweets', 'TweetController', ['only' => [
         'index', 'show', 'update', 'store'
     ]]);
-    Route::resource('api/jobs', 'JobController', ['only' => [
+    /*Route::resource('api/jobs', 'JobController', ['only' => [
         'index', 'store'
-    ]]);
+    ]]);*/
+    Route::get('api/jobs/spider/{type}', 'JobController@index');
+    Route::post('api/jobs/spider/{type}', 'JobController@store');
     Route::get('api/translate/machine', 'TranslateController@getMachineTranslation');
 });

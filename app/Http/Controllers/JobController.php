@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Job;
+use App\Tweet;
 
 class JobController extends Controller
 {
@@ -12,17 +13,44 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($type)
     {
-        $job = Job::get()->last();
-        if(empty($job))
+        $job = Job::where('type', $type)->get()->last();
+        switch ($type)
         {
-            $job = new Job();
-            $job->max_id = '0';
-            $job->since_id = '0';
-            $job->save();
+            case 1:
+                if(empty($job))
+                {
+                    $job = new Job();
+                    $job->max_id = '0';
+                    $job->since_id = '0';
+                    $job->type = 1;
+                    $job->save();
+                }
+                return response(json_encode($job));
+                break;
+            case 2: // Spider type 2 starts from since_id(id in unispider system) and get tweets' html_content
+                if(empty($job))
+                {
+                    $t = Tweet::first();
+                    $job = new Job();
+                    $job->max_id = '0';
+                    $job->since_id = strval($t->id - 1);
+                    $job->type = 2;
+                    $job->save();
+                }
+                $min_id = min(Tweet::orderBy('id', 'dese')->first()->value('id'), ($job->since_id) + 1);
+                $max_id = min(Tweet::orderBy('id', 'dese')->first()->value('id'), $min_id + 20);
+                $jobs = [
+                    "max_id" => $max_id,
+                    "job_list" => Tweet::whereBetween('id', [$min_id, $max_id])->get()->pluck('origin_id')
+                ];
+                return response(json_encode($jobs));
+                //return response(json_encode($test));
+                break;
+            default:
+                return redirect('/');
         }
-        return response(json_encode($job));
     }
 
     /**
@@ -41,12 +69,14 @@ class JobController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($type, Request $request)
     {
         $job = new Job();
         $job->max_id = $request->input('max_id');
         $job->since_id = $request->input('since_id');
+        $job->type = $type;
         $job->save();
+        return response('Job updated.\n' . json_encode($job));
     }
 
     /**
