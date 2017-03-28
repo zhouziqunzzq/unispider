@@ -36,6 +36,14 @@
                                     {{$tweet->text}}
                                 </p>
                             </div>
+                            @if($tweet->trans_zh_author)
+                                <div class="post-description">
+                                    <p>
+                                        {{$tweet->trans_zh}}
+                                    </p>
+                                    <label class="content-subhead">翻译自：{{$tweet->trans_zh_author}}</label>
+                                </div>
+                            @endif
                         </section>
                     @endforeach
 
@@ -44,8 +52,10 @@
                 <div class="footer">
                     <div class="pure-menu pure-menu-horizontal">
                         <ul>
-                            <li class="pure-menu-item"><a href="https://www.cool2645.com/" class="pure-menu-link">2645 Studio</a></li>
-                            <li class="pure-menu-item"><a href="http://twitter.com/nanjolno/" class="pure-menu-link">Original Twitter</a></li>
+                            <li class="pure-menu-item"><a href="https://www.cool2645.com/" class="pure-menu-link">2645
+                                    Studio</a></li>
+                            <li class="pure-menu-item"><a href="http://twitter.com/nanjolno/" class="pure-menu-link">Original
+                                    Twitter</a></li>
                         </ul>
                     </div>
                 </div>

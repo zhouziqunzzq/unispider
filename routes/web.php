@@ -22,4 +22,5 @@ Route::group(['middleware' => 'apiauth'], function () {
     Route::resource('api/jobs', 'JobController', ['only' => [
         'index', 'store'
     ]]);
+    Route::get('api/translate/machine', 'TranslateController@getMachineTranslation');
 });
