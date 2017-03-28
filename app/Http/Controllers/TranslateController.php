@@ -26,7 +26,9 @@ class TranslateController extends Controller
             $output = curl_exec($ch);
 
             $output = json_decode($output,true);
-            $tweet->trans_zh = $output['trans_result'][0]['dst'];
+            $tweet->trans_zh = "";
+            foreach ($output['trans_result'] as $trans_result_branch)
+                $tweet->trans_zh .= $trans_result_branch['dst'];
             $tweet->trans_zh_author = "fanyi.baidu.com";
             $tweet->save();
 
