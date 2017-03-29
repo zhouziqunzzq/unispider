@@ -30,7 +30,7 @@ class JobController extends Controller
                 return response(json_encode($job));
                 break;
             case 2: // Spider type 2 starts from since_id(id in unispider system) and get tweets' html_content
-                if(empty($job))
+                /*if(empty($job))
                 {
                     $t = Tweet::first();
                     $job = new Job();
@@ -45,9 +45,9 @@ class JobController extends Controller
                 $jobs = [
                     "max_id" => $max_id,
                     "job_list" => Tweet::whereBetween('id', [$min_id, $max_id])->get()->pluck('origin_id')
-                ];
+                ];*/
+                $jobs = Tweet::where('html_content', null)->take(20)->get()->pluck('origin_id');
                 return response(json_encode($jobs));
-                //return response(json_encode($test));
                 break;
             default:
                 return redirect('/');
