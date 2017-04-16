@@ -62,6 +62,8 @@
                 <div id="footer" class="footer">
                     <div class="pure-menu pure-menu-horizontal">
                         <ul>
+                            <li class="pure-menu-item"><a href="javascript: loadMore()" class="pure-menu-link">
+                                    加载更多</a></li>
                             <li class="pure-menu-item"><a href="https://www.cool2645.com/" class="pure-menu-link">2645
                                     Studio</a></li>
                             <li class="pure-menu-item"><a href="http://twitter.com/nanjolno/" class="pure-menu-link">Original
@@ -99,14 +101,13 @@
             picker.on({
                 close: function () {
                     var dateMsg = $('#dateMsg');
-                    if(picker.get('select', 'yyyy-mm-dd') != "")
+                    if (picker.get('select', 'yyyy-mm-dd') != "")
                         dateMsg.html(picker.get('select', 'yyyy-mm-dd'));
                     else
                         dateMsg.html("未选择日期...");
                     newDate = dateMsg.html();
                     //console.log("old:" + oldDate + " new:" + newDate);
-                    if(oldDate != newDate)
-                    {
+                    if (oldDate != newDate) {
                         //Reload tweets
                         $('#posts').empty();
                         $('#count').val(0);
