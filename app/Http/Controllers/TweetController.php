@@ -12,19 +12,16 @@ class TweetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response("Hello");
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $date = isset($request->date) ? strtotime($request->date) + 86400 : strtotime(date('Y-m-d')) + 86400;
+        $offset = isset($request->offset) ? intval($request->offset) : 0;
+        $ts = Tweet::where('origin_created_at', '<', $date)
+            ->orderBy('origin_created_at', 'desc')
+            ->offset($offset)
+            ->limit(20)
+            ->get();
+        return json_encode($ts);
     }
 
     /**
@@ -53,18 +50,8 @@ class TweetController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $t = Tweet::find($id);
+        return json_encode($t);
     }
 
     /**
@@ -82,14 +69,4 @@ class TweetController extends Controller
         return response($tweet->origin_id . " updated.");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
