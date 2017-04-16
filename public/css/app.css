@@ -6,7 +6,7 @@
 
 a {
     text-decoration: none;
-    color: rgb(61, 146, 201);
+    color: rgb(255, 146, 201);
 }
 a:hover,
 a:focus {
@@ -34,7 +34,7 @@ h3 {
 }
 
 .sidebar {
-    background: #00d6fe;
+    background: #ffc0cb;
     color: #fff;
 }
 
@@ -47,7 +47,7 @@ h3 {
 }
 .brand-tagline {
     font-weight: 300;
-    color: rgb(176, 202, 219);
+    color: rgb(255, 140, 201);
 }
 
 .nav-list {
@@ -62,7 +62,7 @@ h3 {
 }
 .nav-item a {
     background: transparent;
-    border: 2px solid rgb(176, 202, 219);
+    border: 2px solid rgb(255, 130, 219);
     color: #fff;
     margin-top: 1em;
     letter-spacing: 0.05em;
@@ -71,7 +71,7 @@ h3 {
 }
 .nav-item a:hover,
 .nav-item a:focus {
-    border: 2px solid rgb(61, 146, 201);
+    border: 2px solid rgb(255, 126, 201);
     text-decoration: none;
 }
 

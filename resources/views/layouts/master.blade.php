@@ -17,12 +17,11 @@
 
     <meta name="theme-color" content="#00d6fe"/>
 
-    <title>南條愛乃のツイッターロボット</title>
+    <title>徳井青空のツイッターロボット</title>
 </head>
 <body>
 
-<!--Import jQuery before materialize.js-->
-
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
 @yield('content')
 </body>
