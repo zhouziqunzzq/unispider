@@ -2,6 +2,7 @@
 @section('content')
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="css/gototop.css">
+    <link rel="stylesheet" href="css/datebtn.css">
     <link rel="stylesheet" href="css/picker/themes/default.css">
     <link rel="stylesheet" href="css/picker/themes/default.date.css">
     <div id="layout" class="pure-g">
@@ -25,11 +26,14 @@
         </div>
         <div class="content pure-u-1 pure-u-md-3-4">
             <div>
-                <a href="#" onclick="openPicker()">Select a date...</a>
-                <p id="dateTest">No date selected...</p>
+                <button style="background-color:#00d6fe;color:
+                #FFFFFF;border: 0;border-radius: 60px;" onclick="openPicker()">选择日期
+                </button>
+                <p id="dateMsg">未选择日期...</p>
+                <input id="count" type="hidden" style="display: none" value="0">
                 <!-- A wrapper for all the blog posts -->
-                <div class="posts">
-                    @foreach($tweets as $tweet)
+                <div id="posts" class="posts">
+                    {{--@foreach($tweets as $tweet)
                         <h1 class="content-subhead">{{date("Y-m-d H:i:s",$tweet->origin_created_at)}}</h1>
 
                         <section class="post">
@@ -52,11 +56,10 @@
                                 </div>
                             @endif
                         </section>
-                    @endforeach
-
+                    @endforeach--}}
                 </div>
 
-                <div class="footer">
+                <div id="footer" class="footer">
                     <div class="pure-menu pure-menu-horizontal">
                         <ul>
                             <li class="pure-menu-item"><a href="https://www.cool2645.com/" class="pure-menu-link">2645
@@ -68,43 +71,59 @@
                 </div>
             </div>
         </div>
-        <button class="gototop"><span>Top↑</span></button>
+        <button class="datebtn" onclick="openPicker()">日期</button>
+        <button class="gototop"><span>顶部↑</span></button>
+
     </div>
     <script src="js/jquery.gototop.min.js"></script>
     <script src="js/picker/picker.js"></script>
     <script src="js/picker/picker.date.js"></script>
     <script src="js/picker/translations/zh_CN.js"></script>
+    <script src="js/autoloader.js"></script>
     <script>
-        $(function(){
+        var oldDate = "";
+        var newDate = "";
+        $(function () {
             // $(".gototop").gototop();
             $(".gototop").gototop({
-                position : 0,
-                duration : 500,
-                visibleAt : 300,
-                classname : "isvisible"
+                position: 0,
+                duration: 500,
+                visibleAt: 300,
+                classname: "isvisible"
+            });
+            var $input = $('.datepicker').pickadate({
+                'format': 'yyyy-mm-dd',   //日期显示格式
+                firstDay: 1 //星期一作为第一天
+            });
+            var picker = $input.pickadate('picker');
+            picker.on({
+                close: function () {
+                    var dateMsg = $('#dateMsg');
+                    if(picker.get('select', 'yyyy-mm-dd') != "")
+                        dateMsg.html(picker.get('select', 'yyyy-mm-dd'));
+                    else
+                        dateMsg.html("未选择日期...");
+                    newDate = dateMsg.html();
+                    //console.log("old:" + oldDate + " new:" + newDate);
+                    if(oldDate != newDate)
+                    {
+                        //Reload tweets
+                        $('#posts').empty();
+                        $('#count').val(0);
+                        loadMore();
+                    }
+                    picker.close();
+                }
             });
         });
         function openPicker() {
-            var $input = $('.datepicker').pickadate();
-            var picker = $input.pickadate('picker');
-            picker.on({
-                close: function() {
-                    $('#dateTest').html(picker.get('select', 'yyyy/mm/dd'));
-                    //console.log(picker.get('select', 'yyyy/mm/dd'))
-                    picker.close();
-                    //event.stopPropagation();
-                }
-            });
+            var dateMsg = $('#dateMsg');
+            oldDate = dateMsg.html();
+            var picker = $('.datepicker').pickadate('picker');
             picker.open();
             // If a “click” is involved, prevent the event bubbling.
             event.stopPropagation();
         }
-        $('.datepicker').pickadate({
-            'format':'yyyy-mm-dd',   //日期显示格式
-            firstDay: 1 //星期一作为第一天
-        });
-        $(document).ready(function () {
-            //
-        })
+
     </script>
 @endsection

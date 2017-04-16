@@ -2,8 +2,10 @@
     display: none;
     -webkit-animation: hide 350ms ease-out forwards 1;
     animation: hide 350ms ease-out forwards 1;
-    padding: 16px 32px;
+    padding: 10px;
     border: 0;
+    border-radius: 60px;
+    width: 60px;
     text-align: center;
     background-color:#00d6fe;
     color: #FFFFFF;
