@@ -11,7 +11,10 @@
 |
 */
 
-Route::get('/', 'IndexController@index');
+// Api static routes
+Route::get('api', 'IndexController@apitest');
+
+//Api auth required routes
 Route::group(['middleware' => 'apiauth'], function () {
     Route::resource('api/tweets', 'TweetController', ['only' => [
         'index', 'show', 'update', 'store'
@@ -23,3 +26,6 @@ Route::group(['middleware' => 'apiauth'], function () {
     Route::post('api/jobs/spider/{type}', 'JobController@store');
     Route::get('api/translate/machine', 'TranslateController@getMachineTranslation');
 });
+
+// All other routes
+Route::get('{param}', 'IndexController@index')->where('param', '(.*)');
