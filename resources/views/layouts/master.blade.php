@@ -10,8 +10,6 @@
 
     <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/grids-responsive-min.css">
 
-    <link rel="stylesheet" href="/css/app.css">
-
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -20,10 +18,7 @@
     <title>南條愛乃のツイッターロボット</title>
 </head>
 <body>
-
-<!--Import jQuery before materialize.js-->
-
-
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 @yield('content')
 </body>
 </html>

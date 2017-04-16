@@ -10,7 +10,7 @@ class IndexController extends Controller
 {
     public function index($param)
     {
-        $param = str_replace('/', '.', $param);
+        /*$param = str_replace('/', '.', $param);
         if ($param == '.') {
             return view("index");
         }
@@ -21,11 +21,11 @@ class IndexController extends Controller
             return view($param . ".index");
         }
         else
-            abort(404);
-        /* $tweets = Tweet::orderBy('origin_created_at', 'desc')->get();
+            abort(404);*/
+        $tweets = Tweet::orderBy('origin_created_at', 'desc')->get();
          return view('index', [
              'tweets' => $tweets,
-         ]);*/
+         ]);
     }
 
     public function apitest()

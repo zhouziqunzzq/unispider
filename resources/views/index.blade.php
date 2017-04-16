@@ -1,6 +1,11 @@
 @extends('layouts.master')
 @section('content')
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/gototop.css">
+    <link rel="stylesheet" href="css/picker/themes/default.css">
+    <link rel="stylesheet" href="css/picker/themes/default.date.css">
     <div id="layout" class="pure-g">
+        <input class="datepicker" type="text" hidden/>
         <div class="sidebar pure-u-1 pure-u-md-1-4">
             <div class="header">
                 <h1 class="brand-title">南條愛乃の</h1>
@@ -20,6 +25,8 @@
         </div>
         <div class="content pure-u-1 pure-u-md-3-4">
             <div>
+                <a href="#" onclick="openPicker()">Select a date...</a>
+                <p id="dateTest">No date selected...</p>
                 <!-- A wrapper for all the blog posts -->
                 <div class="posts">
                     @foreach($tweets as $tweet)
@@ -61,6 +68,43 @@
                 </div>
             </div>
         </div>
+        <button class="gototop"><span>Top↑</span></button>
     </div>
-
+    <script src="js/jquery.gototop.min.js"></script>
+    <script src="js/picker/picker.js"></script>
+    <script src="js/picker/picker.date.js"></script>
+    <script src="js/picker/translations/zh_CN.js"></script>
+    <script>
+        $(function(){
+            // $(".gototop").gototop();
+            $(".gototop").gototop({
+                position : 0,
+                duration : 500,
+                visibleAt : 300,
+                classname : "isvisible"
+            });
+        });
+        function openPicker() {
+            var $input = $('.datepicker').pickadate();
+            var picker = $input.pickadate('picker');
+            picker.on({
+                close: function() {
+                    $('#dateTest').html(picker.get('select', 'yyyy/mm/dd'));
+                    //console.log(picker.get('select', 'yyyy/mm/dd'))
+                    picker.close();
+                    //event.stopPropagation();
+                }
+            });
+            picker.open();
+            // If a “click” is involved, prevent the event bubbling.
+            event.stopPropagation();
+        }
+        $('.datepicker').pickadate({
+            'format':'yyyy-mm-dd',   //日期显示格式
+            firstDay: 1 //星期一作为第一天
+        });
+        $(document).ready(function () {
+            //
+        })
+    </script>
 @endsection
