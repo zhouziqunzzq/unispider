@@ -1,6 +1,12 @@
 @extends('layouts.master')
 @section('content')
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/gototop.css">
+    <link rel="stylesheet" href="css/datebtn.css">
+    <link rel="stylesheet" href="css/picker/themes/default.css">
+    <link rel="stylesheet" href="css/picker/themes/default.date.css">
     <div id="layout" class="pure-g">
+        <input class="datepicker" type="text" hidden/>
         <div class="sidebar pure-u-1 pure-u-md-1-4">
             <div class="header">
                 <h1 class="brand-title">徳井青空の</h1>
@@ -20,13 +26,15 @@
         </div>
         <div class="content pure-u-1 pure-u-md-3-4">
             <div>
+                <button class="pickerbtn" onclick="openPicker()">选择日期
+                </button>
+                <p id="dateMsg">未选择日期...</p>
                 <input id="count" type="hidden" style="display: none" value="0">
                 <!-- A wrapper for all the blog posts -->
                 <div id="posts" class="posts">
-
                 </div>
 
-                <div class="footer">
+                <div id="footer" class="footer">
                     <div class="pure-menu pure-menu-horizontal">
                         <ul>
                             <li class="pure-menu-item"><a href="javascript: loadMore()" class="pure-menu-link">加载更多</a>
@@ -40,55 +48,59 @@
                 </div>
             </div>
         </div>
+        <button class="datebtn" onclick="openPicker()">日期</button>
+        <button class="gototop"><span>顶部↑</span></button>
+
     </div>
+
+    <script src="js/jquery.gototop.min.js"></script>
+    <script src="js/picker/picker.js"></script>
+    <script src="js/picker/picker.date.js"></script>
+    <script src="js/picker/translations/zh_CN.js"></script>
+    <script src="js/autoloader.js"></script>
     <script>
-        function loadMore() {
-            var offset = $("#count").val();
-            $.ajax({
-                url: "/api/tweets/?pwd=cool2645&offset=" + offset.toString(),
-                method: "GET",
-                success: function (msg) {
-                    var dataObj = eval("(" + msg + ")");
-                    for (i in dataObj) {
-                        var append_str = '<h1 class="content-subhead">';
-                        var newDate = new Date();
-                        newDate.setTime(dataObj[i].origin_created_at * 1000);
-                        append_str += newDate.toString();
-                        append_str += '</h1>\
-                            <section class="post">\
-                            <header class="post-header">\
-                            <img width="48" height="48" alt="avatar" class="post-avatar" src="https://pbs.twimg.com/profile_images/848180751245860865/5QXbLIwb.jpg">\
-                            <h2 class="post-title">';
-                        append_str += dataObj[i].id;
-                        append_str += '</h2>\
-                            </header>\
-                            <div class="post-description">\
-                            <p>';
-                        if (dataObj[i].html_content == null)
-                            append_str += dataObj[i].text;
-                        else
-                            append_str += dataObj[i].html_content;
-                        append_str += '</p>\
-                            </div>';
-                        if (dataObj[i].trans_zh_author != null) {
-                            append_str += '<div class="post-description">\
-                                <p>';
-                            append_str += dataObj[i].trans_zh;
-                            append_str += '</p>\
-                                <label class="content-subhead">翻译自：';
-                            append_str += dataObj[i].trans_zh_author;
-                            append_str += '</label>\
-                                </div>';
-                        }
-                        append_str += '</section>';
-                        $("#posts").append(append_str);
+        var oldDate = "";
+        var newDate = "";
+        $(function () {
+            // $(".gototop").gototop();
+            $(".gototop").gototop({
+                position: 0,
+                duration: 500,
+                visibleAt: 300,
+                classname: "isvisible"
+            });
+            var $input = $('.datepicker').pickadate({
+                'format': 'yyyy-mm-dd',   //日期显示格式
+                firstDay: 1 //星期一作为第一天
+            });
+            var picker = $input.pickadate('picker');
+            picker.on({
+                close: function () {
+                    var dateMsg = $('#dateMsg');
+                    if (picker.get('select', 'yyyy-mm-dd') != "")
+                        dateMsg.html(picker.get('select', 'yyyy-mm-dd'));
+                    else
+                        dateMsg.html("未选择日期...");
+                    newDate = dateMsg.html();
+                    //console.log("old:" + oldDate + " new:" + newDate);
+                    if (oldDate != newDate) {
+                        //Reload tweets
+                        $('#posts').empty();
+                        $('#count').val(0);
+                        loadMore();
                     }
+                    picker.close();
                 }
             });
-            $("#count").val(offset + 20);
+        });
+        function openPicker() {
+            var dateMsg = $('#dateMsg');
+            oldDate = dateMsg.html();
+            var picker = $('.datepicker').pickadate('picker');
+            picker.open();
+            // If a “click” is involved, prevent the event bubbling.
+            event.stopPropagation();
         }
-        $(document).ready(function () {
-            loadMore();
-        })
+
     </script>
 @endsection

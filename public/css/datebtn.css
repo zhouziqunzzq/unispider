@@ -1,0 +1,19 @@
+.datebtn {
+    position: fixed;
+    bottom: 60px;
+    right: 16px;
+    padding: 10px;
+    text-align: center;
+    background-color: #eeb0ba;
+    color: #FFFFFF;
+    border: 0;
+    border-radius: 60px;
+    width: 60px;
+}
+
+.pickerbtn {
+    background-color: #eeb0ba;
+    color: #FFFFFF;
+    border: 0;
+    border-radius: 60px;
+}
