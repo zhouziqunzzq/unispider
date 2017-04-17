@@ -15,7 +15,7 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <meta name="theme-color" content="#00d6fe"/>
+    <meta name="theme-color" content="#ffc0cf"/>
 
     <title>徳井青空のツイッターロボット</title>
 </head>

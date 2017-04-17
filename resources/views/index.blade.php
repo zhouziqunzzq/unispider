@@ -83,9 +83,9 @@
                         append_str += '</section>';
                         $("#posts").append(append_str);
                     }
+			        $("#count").val(parseInt(offset) + 20);
                 }
             });
-            $("#count").val(offset + 20);
         }
         $(document).ready(function () {
             loadMore();
