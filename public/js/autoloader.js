@@ -27,7 +27,7 @@ function loadMore() {
                             <header class="post-header">\
                             <img width="48" height="48" alt="avatar" class="post-avatar" src="/img/n.jpg">\
                             <h2 class="post-title">';
-                append_str += '<a href="https://twitter.com/tokui_sorangley/status/';
+                append_str += '<a href="https://twitter.com/nanjolno/status/';
                 append_str += dataObj[i].origin_id;
                 append_str += '">';
                 append_str += dataObj[i].id;
