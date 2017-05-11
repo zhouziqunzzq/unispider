@@ -8,6 +8,7 @@ a {
     text-decoration: none;
     color: rgb(61, 146, 201);
 }
+
 a:hover,
 a:focus {
     text-decoration: underline;
@@ -42,9 +43,11 @@ h3 {
 .brand-tagline {
     margin: 0;
 }
+
 .brand-title {
     text-transform: uppercase;
 }
+
 .brand-tagline {
     font-weight: 300;
     color: rgb(176, 202, 219);
@@ -55,11 +58,13 @@ h3 {
     padding: 0;
     list-style: none;
 }
+
 .nav-item {
     display: inline-block;
     *display: inline;
     zoom: 1;
 }
+
 .nav-item a {
     background: transparent;
     border: 2px solid rgb(176, 202, 219);
@@ -69,6 +74,7 @@ h3 {
     text-transform: uppercase;
     font-size: 85%;
 }
+
 .nav-item a:hover,
 .nav-item a:focus {
     border: 2px solid rgb(61, 146, 201);
@@ -92,22 +98,26 @@ h3 {
 .post {
     padding-bottom: 2em;
 }
+
 .post-title {
     font-size: 1em;
     color: #8aa4af;
     margin-bottom: 0.1em;
 }
+
 .post-avatar {
     border-radius: 50px;
     float: left;
     margin-left: 1em;
 }
+
 .post-description {
     font-family: Georgia, "Cambria", serif;
     color: #444;
     line-height: 1.8em;
     margin-left: 4em;
 }
+
 .post-meta {
     color: #999;
     font-size: 90%;
@@ -121,15 +131,19 @@ h3 {
     background: #999;
     font-size: 80%;
 }
+
 .post-category-design {
     background: #5aba59;
 }
+
 .post-category-pure {
     background: #4d85d1;
 }
+
 .post-category-yui {
     background: #8156a7;
 }
+
 .post-category-js {
     background: #df2d4f;
 }
@@ -137,6 +151,7 @@ h3 {
 .post-images {
     margin: 1em 0;
 }
+
 .post-image-meta {
     margin-top: -3.5em;
     margin-left: 1em;
@@ -147,10 +162,12 @@ h3 {
 .footer {
     padding: 1em 0;
 }
+
 .footer a {
     color: #ccc;
     font-size: 80%;
 }
+
 .footer .pure-menu a:hover,
 .footer .pure-menu a:focus {
     background: none;
@@ -177,10 +194,16 @@ h3 {
         text-align: center;
     }
 }
+
 p {
     word-break: break-all;
     font-family: sans-serif;
     font-weight: 100;
     font-size: 1.125em;
     letter-spacing: 0.01em;
+}
+
+.photo {
+    width: 100%;
+    max-width: 575px;
 }

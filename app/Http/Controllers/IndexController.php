@@ -24,10 +24,6 @@ class IndexController extends Controller
         }
         else
             abort(404);
-        /* $tweets = Tweet::orderBy('origin_created_at', 'desc')->get();
-         return view('index', [
-             'tweets' => $tweets,
-         ]);*/
     }
 
     public function apitest()
