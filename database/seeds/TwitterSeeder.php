@@ -13,9 +13,10 @@ class TwitterSeeder extends Seeder
     {
         $i = 100;
         while($i != 0) {
+            $rd = time() + random_int(-10240, 0);
             DB::table('tweets')->insert([
-                'origin_id' => str_random(10),
-                'origin_created_at' => time() + random_int(-10240, 0),
+                'origin_id' => $rd,
+                'origin_created_at' => $rd,
                 'text' => str_random(128),
                 'jsondata' => json_encode(str_random(128))
             ]);
