@@ -14,6 +14,9 @@
 // Api static routes
 Route::get('api', 'IndexController@apitest');
 
+// Img
+Route::get('twimg/{imgid}', 'IndexController@img');
+
 //Api auth required routes
 Route::group(['middleware' => 'apiauth'], function () {
     Route::resource('api/tweets', 'TweetController', ['only' => [

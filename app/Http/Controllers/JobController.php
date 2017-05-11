@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Job;
 use App\Tweet;
+use App\Img;
 
 class JobController extends Controller
 {
@@ -15,13 +16,13 @@ class JobController extends Controller
      */
     public function index($type)
     {
-        $job = Job::where('type', $type)->get()->last();
         switch ($type) {
             case 1:
+                $job = Job::where('type', $type)->get()->last();
                 if (empty($job)) {
                     $job = new Job();
-                    $job->max_id = '0';
-                    $job->since_id = '0';
+                    $job->max_id = '0'; // latest old tweet
+                    $job->since_id = '0'; // oldest new tweet
                     $job->type = 1;
                     $job->save();
                 }
@@ -33,7 +34,73 @@ class JobController extends Controller
                     ->take(20)
                     ->get()
                     ->pluck('origin_id');
+                $job = new Job();
+                $job->max_id = $jobs[0]->id; // latest tweet
+                $job->since_id = $jobs[count($jobs) - 1]->id; // oldest tweet
+                $job->type = 2;
+                $job->save();
                 return response(json_encode($jobs));
+                break;
+            case 3:
+                $job_cnt = Img::where('exist', 0)->count();
+                if ($job_cnt != 0) {
+                    $job = Img::where('exist', 0)->first();
+                    return response(json_encode(['msg' => 'img', 'job' => $job]));
+                }
+                else {
+                    $job = Job::where('type', $type)->get()->last();
+                    if (empty($job)) {
+                        $job = new Job();
+                        $job->max_id = '0'; // latest old tweet
+                        $job->since_id = '0'; // oldest new tweet
+                        $job->type = 3;
+                        $job->save();
+                    }
+                    $new_tweets = Tweet::where('origin_id', '>', $job->since_id)
+                        ->orderBy('origin_created_at', 'desc')
+                        ->take(20)
+                        ->get();
+                    $old_tweets = Tweet::where('origin_id', '<', $job->max_id)
+                        ->orderBy('origin_created_at', 'desc')
+                        ->take(20)
+                        ->get();
+                    foreach ($new_tweets as $new_tweet) {
+                        $jsondata = $new_tweet->jsondata;
+                        $data = json_decode($jsondata, true);
+                        if (isset($data['media'])) {
+                            foreach ($data['media'] as $media) {
+                                if ($media['type'] == 'photo') {
+                                    $img = new Img();
+                                    $img->img_id = str_replace("https://pbs.twimg.com/media/", "", $media['media_url_https']);
+                                    $img->exist = false;
+                                    $img->save();
+                                }
+                            }
+                        }
+                    }
+                    foreach ($old_tweets as $old_tweet) {
+                        $jsondata = $old_tweet->jsondata;
+                        $data = json_decode($jsondata, true);
+                        if (isset($data['media'])) {
+                            foreach ($data['media'] as $media) {
+                                if ($media['type'] == 'photo') {
+                                    $img = new Img();
+                                    $img->img_id = str_replace("https://pbs.twimg.com/media/", "", $media['media_url_https']);
+                                    $img->exist = false;
+                                    $img->save();
+                                }
+                            }
+                        }
+                    }
+                    $new_job = new Job();
+                    $new_job->since_id = count($new_tweets) ? $new_tweets[0]->origin_id : $job->since_id;
+                    $new_job->max_id = $job->max_id == 0
+                        ? (count($new_tweets) ? $new_tweets[count($new_tweets) - 1]->origin_id : $job->max_id)
+                        : (count($old_tweets) ? $old_tweets[count($old_tweets) - 1]->origin_id : $job->max_id);
+                    $new_job->type = 3;
+                    $new_job->save();
+                    return response(json_encode(['msg' => 'fin', 'job' => $job]));
+                }
                 break;
             default:
                 return redirect('/');
@@ -58,12 +125,24 @@ class JobController extends Controller
      */
     public function store($type, Request $request)
     {
-        $job = new Job();
-        $job->max_id = $request->input('max_id');
-        $job->since_id = $request->input('since_id');
-        $job->type = $type;
-        $job->save();
-        return response('Job updated.\n' . json_encode($job));
+        switch ($type) {
+            case 1:
+                $job = new Job();
+                $job->max_id = $request->input('max_id');
+                $job->since_id = $request->input('since_id');
+                $job->type = $type;
+                $job->save();
+                return response('Job updated.\n' . json_encode($job));
+                break;
+            case 3:
+                $imgs = Img::where('img_id', $request->img_id)->get();
+                foreach ($imgs as $img) {
+                    $img->exist = true;
+                    $img->save();
+                }
+                return response('Job passing.');
+                break;
+        }
     }
 
     /**
