@@ -44,7 +44,7 @@ class JobController extends Controller
             case 3:
                 $job_cnt = Img::where('exist', 0)->count();
                 if ($job_cnt != 0) {
-                    $job = Img::where('exist', 0)->first();
+                    $job = Img::where('exist', 0)->orderBy('id', 'desc')->first();
                     return response(json_encode(['msg' => 'img', 'job' => $job]));
                 }
                 else {
