@@ -45,7 +45,8 @@ function loadMore() {
                 for(j in jsondata.media) {
                     if(jsondata.media[j].type == "photo") {
                         append_str += "<center><img class='photo' src='";
-                        append_str += jsondata.media[j].media_url_https;
+                        append_str += jsondata.media[j].media_url_https.replace("https://pbs.twimg.com/media/", "/twimg/");
+                        //append_str += jsondata.media[j].media_url_https;
                         append_str += "' /></center>";
                     }
                 }
