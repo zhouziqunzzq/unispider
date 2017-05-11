@@ -35,8 +35,8 @@ class JobController extends Controller
                     ->get()
                     ->pluck('origin_id');
                 $job = new Job();
-                $job->max_id = $jobs[0]->id; // latest tweet
-                $job->since_id = $jobs[count($jobs) - 1]->id; // oldest tweet
+                $job->max_id = $jobs[0]; // latest tweet
+                $job->since_id = $jobs[count($jobs) - 1]; // oldest tweet
                 $job->type = 2;
                 $job->save();
                 return response(json_encode($jobs));
