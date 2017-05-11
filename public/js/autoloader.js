@@ -27,7 +27,11 @@ function loadMore() {
                             <header class="post-header">\
                             <img width="48" height="48" alt="avatar" class="post-avatar" src="/img/n.jpg">\
                             <h2 class="post-title">';
+                append_str += '<a href="https://twitter.com/nanjolno/status/';
+                append_str += dataObj[i].origin_id;
+                append_str += '">';
                 append_str += dataObj[i].id;
+                append_str += '</a>';
                 append_str += '</h2>\
                             </header>\
                             <div class="post-description">\
@@ -36,8 +40,17 @@ function loadMore() {
                     append_str += dataObj[i].text;
                 else
                     append_str += dataObj[i].html_content;
-                append_str += '</p>\
-                            </div>';
+                append_str += '</p>';
+                var jsondata = eval("(" + dataObj[i].jsondata + ")");
+                for(j in jsondata.media) {
+                    if(jsondata.media[j].type == "photo") {
+                        append_str += "<center><img class='photo' src='";
+                        append_str += jsondata.media[j].media_url_https.replace("https://pbs.twimg.com/media/", "/twimg/");
+                        //append_str += jsondata.media[j].media_url_https;
+                        append_str += "' /></center>";
+                    }
+                }
+                append_str += '</div>';
                 if (dataObj[i].trans_zh_author != null) {
                     append_str += '<div class="post-description">\
                                 <p>';

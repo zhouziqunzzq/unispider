@@ -202,3 +202,8 @@ p {
     font-size: 1.125em;
     letter-spacing: 0.01em;
 }
+
+.photo {
+    width: 100%;
+    max-width: 575px;
+}
