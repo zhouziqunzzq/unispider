@@ -11,8 +11,8 @@ function loadMore() {
     else    //Prevent duplicated loading
         return;
     $.ajax({
-        url: dateMsg.html() == "未选择日期..." ? "/api/tweets/?pwd=cool2645&offset=" + offset.toString() :
-            "/api/tweets/?pwd=cool2645&date=" + dateMsg.html() + "&offset=" + offset.toString(),
+        url: dateMsg.html() == "未选择日期..." ? "/api/tweets?pwd=cool2645&offset=" + offset.toString() :
+            "/api/tweets?pwd=cool2645&date=" + dateMsg.html() + "&offset=" + offset.toString(),
         method: "GET",
         success: function (msg) {
             var dataObj = eval("(" + msg + ")");
