@@ -1,7 +1,4 @@
 .datebtn {
-    position: fixed;
-    bottom: 60px;
-    right: 16px;
     padding: 10px;
     text-align: center;
     background-color:#00d6fe;
@@ -9,4 +6,5 @@
     border: 0;
     border-radius: 60px;
     width: 60px;
+    margin-bottom: 5px;
 }

@@ -1,0 +1,8 @@
+.tool-wrap {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    padding: 0;
+    border: 0;
+    width: 80px;
+}

@@ -1,8 +1,9 @@
 @extends('layouts.master')
 @section('content')
     <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="css/gototop.css">
-    <link rel="stylesheet" href="css/datebtn.css">
+    <link rel="stylesheet" href="css/gototop-3.css">
+    <link rel="stylesheet" href="css/datebtn-3.css">
+    <link rel="stylesheet" href="css/tool-wrap.css">
     <link rel="stylesheet" href="css/picker/themes/default.css">
     <link rel="stylesheet" href="css/picker/themes/default.date.css">
     <div id="layout" class="pure-g">
@@ -73,8 +74,10 @@
                 </div>
             </div>
         </div>
-        <button class="datebtn" onclick="openPicker()">日期</button>
-        <button class="gototop"><span>顶部↑</span></button>
+        <div class="tool-wrap">
+            <button class="datebtn" onclick="openPicker()">日期</button>
+            <button class="gototop"><span>顶部↑</span></button>
+        </div>
 
     </div>
     <script src="js/jquery.gototop.min.js"></script>
