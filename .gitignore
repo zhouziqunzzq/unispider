@@ -4,6 +4,8 @@
 /storage/*.key
 /vendor
 /.idea
+/public/img/twimg
 Homestead.json
 Homestead.yaml
 .env
+composer.phar
